@@ -1,4 +1,5 @@
 # 功能
+
  - [x] 企微员工同步 
  - [x] 企微消息回复
  - [ ] 手动同步企微员工
@@ -14,14 +15,14 @@
 
 
 # 安装
+> 基于 laravel9+dcat-admin2.*,需要php.8+
 1. composer install
 2. cp .env.example .env
 3. php artisan key:generate
 4. 配置数据库，php artisan migrate
 5. [配置自建应用的appid和回调地址](WEWORK_APP.md)
-6. php artisan wind:install
-7. 进程守护
-8. 【可选】定时任务
+6. 开启队列进程守护
+7. 【可选】开启定时任务，也可以可以手动更新成员(`php artisan sync:user`)
 
 
 # 更新日志
