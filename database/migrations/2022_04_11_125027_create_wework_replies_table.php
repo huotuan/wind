@@ -15,7 +15,7 @@ return new class () extends Migration {
         Schema::create('wework_replies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('wework_user_id')->default(0);
-            $table->string('title')->index('idx_corpId_title')->comment('标题');
+            $table->string('title',128)->index('idx_corpId_title')->comment('标题');
             $table->text('content')->comment('回复内容');
             $table->boolean('status')->default(true)->comment('是否启用 1：是，0：否');
             $table->boolean('need_alarm')->default(false)->comment('是否报警 1：是，0：否');
