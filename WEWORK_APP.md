@@ -17,9 +17,9 @@
    - 回调地址：`你的域名.com/wework/callback`
    - env配置：
    ```bash
-   WECHAT_WORK_SECRET=uTnft3cWgcp0sZvxonPwVk2gZNmDOd1iBk_WbZLQ9w8
-   WECHAT_WORK_TOKEN=cjXGMKae4ZLdAr8VLPG
-   WECHAT_WORK_AES_KEY=UbxVV2ajAGzOIwwWitREh2l4flGBvoCgODCbomUcmNp
+   WECHAT_WORK_SECRET=
+   WECHAT_WORK_TOKEN=
+   WECHAT_WORK_AES_KEY=
    ```
 
 7. 手动同步成员 `php artisan sync:user` ，能成功获取到成员(`wework_users`)就说明配置成功
