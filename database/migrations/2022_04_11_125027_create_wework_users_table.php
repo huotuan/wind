@@ -16,7 +16,7 @@ return new class () extends Migration {
             $table->increments('id');
             $table->string('corp_id', 64)->comment('企业id');
             $table->string('userid', 64)->comment('成员id');
-            $table->string('name', 50)->comment('成员名称');
+            $table->string('name', 64)->comment('成员名称');
             $table->string('avatar')->nullable()->comment('成员头像');
             $table->string('thumb_avatar')->nullable();
             $table->string('alias')->nullable()->comment('别名');

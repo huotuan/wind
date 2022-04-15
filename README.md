@@ -15,7 +15,7 @@
 
 
 # 安装
-> 基于 laravel9+dcat-admin2.*,需要php.8+
+> 基于 laravel9+dcat-admin2.*,需要php8+
 1. composer install
 2. cp .env.example .env
 3. php artisan key:generate

@@ -41,13 +41,6 @@ class WeWorkUserSyncJob implements ShouldQueue
             $app = EasyWeChat::work();
             $api = $app->getClient();
 
-            // $memberResponse =  $api->get('/cgi-bin/user/simplelist', [
-            //     'query' => [
-            //             'department_id' => 2,
-            //             'fetch_child' => 1,
-            //         ]
-            //     ]);
-            // dd($memberResponse->toArray());
             $departmentResponse =  $api->get('/cgi-bin/department/list');
             $deparments = $departmentResponse->toArray();
             $responses = array_map(static function ($v) use ($api) {
@@ -65,7 +58,7 @@ class WeWorkUserSyncJob implements ShouldQueue
                     $item['corp_id'] = $app->getConfig()->get('corp_id');
                     return Arr::only($item, ['userid','name','corp_id','alias','thumb_avatar','mobile','avatar']);
                 });
-                // todo 批量插入 upsert
+    
                 $this->updateWeWorkUser($userData);
                 break;
             }

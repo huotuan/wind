@@ -37,11 +37,6 @@ class WeWorkReplyJob implements ShouldQueue
      */
     public function handle()
     {
-        $corpId = $this->message->ToUserName;
-        $FromUserName = $this->message->FromUserName;
-        $Content = $this->message->Content;
-        // info('message',[$this->message]);
-        info('message', [$corpId,$FromUserName,$Content]);
         try {
             $replies = WeWorkReply::query()
         ->whereHas('user', function ($query) {
@@ -59,7 +54,7 @@ class WeWorkReplyJob implements ShouldQueue
 
             $this->sendMessage($replies);
         } catch (Exception $e) {
-            info('回复报错', $e->getMessage());
+            info('回复报错', [$e->getMessage()]);
         }
     }
 

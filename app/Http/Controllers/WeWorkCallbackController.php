@@ -22,9 +22,5 @@ class WeWorkCallbackController extends Controller
             return $next($message);
         });
         return $app->serve();
-
-        // $response = $app->server->serve();
-
-        // return $response->send();
     }
 }
