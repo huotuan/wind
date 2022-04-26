@@ -15,7 +15,7 @@ return new class () extends Migration {
         Schema::create('wework_reply_keywords', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reply_id')->default(0)->index('idx_replyId');
-            $table->string('keywords',128)->index('idx_words')->comment('关键词');
+            $table->string('keywords', 128)->index('idx_words')->comment('关键词');
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();

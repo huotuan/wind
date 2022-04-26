@@ -12,11 +12,17 @@ class WeWorkCallbackController extends Controller
     {
         $app = EasyWeChat::work()->getServer();
         $app->with(function ($message, \Closure $next) {
-            switch ($message->MsgType) {
+            $MsgType = $message->MsgType ?? '';// text|image|voice|event ..
+            $key = 'callback';
+            Cache::put($key, $message, 600);
+            // 处理event
+            switch ($MsgType) {
                 case 'text':
-                    $key = 'message';
-                    Cache::put($key, $message, 600);
-                    dispatch(new WeWorkReplyJob($message));
+                    dispatch(new WeworkReplyJob($message));
+                break;
+                case 'image':
+                break;
+                default:
                 break;
             }
             return $next($message);

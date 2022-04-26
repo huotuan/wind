@@ -22,8 +22,8 @@ class WeWorkReplyKeywordController extends AdminController
             $grid->column('reply_id');
             $grid->column('wework_user_id');
             $grid->column('keywords');
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
+            $grid->column('created_at')->short_datetime();
+            $grid->column('updated_at')->short_datetime()->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');

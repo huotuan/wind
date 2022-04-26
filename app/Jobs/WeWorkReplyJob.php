@@ -39,17 +39,17 @@ class WeWorkReplyJob implements ShouldQueue
     {
         try {
             $replies = WeWorkReply::query()
-        ->whereHas('user', function ($query) {
-            return $query->where([
-                'corp_id' => $this->message->ToUserName,
-                'userid' => $this->message->FromUserName
-            ]);
-        })
-        ->whereHas('keywords', function ($query) {
-            return $query->where('keywords', 'like', '%'.$this->message->Content.'%');
-        })
-        ->where('status', WeWorkReply::ACTIVED)
-        ->get(['title', 'content', 'id', 'recall_time', 'need_alarm', 'interval_time', 'url']);
+            ->whereHas('user', function ($query) {
+                return $query->where([
+                    'corp_id' => $this->message->ToUserName,
+                    'userid' => $this->message->FromUserName
+                ]);
+            })
+            ->whereHas('keywords', function ($query) {
+                return $query->where('keywords', 'like', '%'.$this->message->Content.'%');
+            })
+            ->where('status', WeWorkReply::ACTIVED)
+            ->get(['title', 'content', 'id', 'recall_time', 'need_alarm', 'interval_time', 'url']);
 
 
             $this->sendMessage($replies);

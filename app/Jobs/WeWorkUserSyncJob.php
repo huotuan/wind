@@ -58,7 +58,7 @@ class WeWorkUserSyncJob implements ShouldQueue
                     $item['corp_id'] = $app->getConfig()->get('corp_id');
                     return Arr::only($item, ['userid','name','corp_id','alias','thumb_avatar','mobile','avatar']);
                 });
-    
+
                 $this->updateWeWorkUser($userData);
                 break;
             }

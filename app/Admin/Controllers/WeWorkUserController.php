@@ -31,7 +31,7 @@ class WeWorkUserController extends AdminController
            5 => 'primary',
        ], 'primary')->help('成员在微信的状态');
             $grid->column('created_at')->short_datetime();
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at')->short_datetime()->sortable();
 
             $grid->disableRowSelector();
             $grid->disableActions();

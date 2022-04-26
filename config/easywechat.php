@@ -126,6 +126,7 @@ return [
              'secret'     => env('WECHAT_WORK_SECRET', ''),
              'token'      => env('WECHAT_WORK_TOKEN', ''),
              'aes_key'    => env('WECHAT_WORK_AES_KEY', ''),
+             'agent_id'    => env('WECHAT_WORK_AGENT_ID', ''),
 
                 /**
                  * 接口请求相关配置，超时时间等，具体可用参数请参考：

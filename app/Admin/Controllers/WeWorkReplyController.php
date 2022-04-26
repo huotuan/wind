@@ -27,7 +27,7 @@ class WeWorkReplyController extends AdminController
             $grid->column('status')->switch();
             $grid->column('need_alarm')->switch();
             $grid->column('created_at')->short_datetime();
-            $grid->column('updated_at')->sortable();
+            $grid->column('updated_at')->short_datetime()->sortable();
 
             $grid->disableRowSelector();
             $grid->perPages([20, 50, 100]);

@@ -10,6 +10,7 @@
    ![设置自建应用范围](./public/wework_app/2.png)
 5. 获取 `secret`
    ![获取应用secret](./public/wework_app/3.png)
+   ![获取应用agent_id](./public/wework_app/3.png)
 6. 设置api接收消息
    ![设置api接收消息](./public/wework_app/4.png)
    ![填写回调](./public/wework_app/5.png)
@@ -20,7 +21,10 @@
    WECHAT_WORK_SECRET=
    WECHAT_WORK_TOKEN=
    WECHAT_WORK_AES_KEY=
+   WECHAT_WORK_AGENT_ID=
    ```
 
 7. 手动同步成员 `php artisan sync:user` ，能成功获取到成员(`wework_users`)就说明配置成功
-8. enjoy it!
+8. `php artisan hello`,发送一条测试信息（可见范围内的所有人都可以收到）
+9. 登录后台 你的域名.com/你的域名路径（env中设置，默认admin），输入账号 admin/admin
+10. enjoy it!
