@@ -8,9 +8,8 @@
 4. 添加自建应用，注意把可见范围设置成最大
    ![添加自建应用](./public/wework_app/1.png)
    ![设置自建应用范围](./public/wework_app/2.png)
-5. 获取 `secret`
-   ![获取应用secret](./public/wework_app/3.png)
-   ![获取应用agent_id](./public/wework_app/3.png)
+5. 获取 `secret` 及 `agent_id`
+   ![获取应用secret 和 agent_id](./public/wework_app/3.png)
 6. 设置api接收消息
    ![设置api接收消息](./public/wework_app/4.png)
    ![填写回调](./public/wework_app/5.png)

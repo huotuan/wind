@@ -22,9 +22,10 @@
 3. php artisan key:generate
 4. 配置数据库，php artisan migrate
 5. [配置自建应用的appid和回调地址](WEWORK_APP.md)
-6. **开启队列进程守护**
-7. 【可选】开启定时任务，也可以可以手动更新成员(`php artisan sync:user`)
-8. [常见问题](ISSUES.md)
+6. 启动队列 `php artisan queue:work`
+7. 更新成员 `php artisan sync:user`
+8. 发送测试消息 `php artisan hello`
+9. [常见问题](ISSUES.md)
 
 
 # 更新日志

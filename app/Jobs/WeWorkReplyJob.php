@@ -77,8 +77,8 @@ class WeWorkReplyJob implements ShouldQueue
                         ],
                         "agentid" => $this->message->AgentID,
                         "msgtype" => "text",
+                    ]
                 ]
-            ]
             );
             info('send messege res', [$response->toArray()]);
         }
