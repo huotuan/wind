@@ -6,6 +6,8 @@ use Dcat\Admin\Show;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Grid\Column;
 use Dcat\Admin\Grid\Filter;
+use Dcat\Admin\Layout\Navbar;
+use App\Admin\Actions\Refresh;
 use App\Admin\Extensions\ShortDatetime;
 
 /**
@@ -57,3 +59,7 @@ $script = <<<'JS'
         })
 JS;
 Admin::script($script);
+
+Admin::navbar(function (Navbar $navbar) {
+    $navbar->left(Refresh::make()->render());
+});

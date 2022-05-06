@@ -14,8 +14,8 @@ class HomeController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Dashboard')
-            ->description('Description...')
+        ->header(get_agent('name')??'小助手')
+        ->description('同步于：'.get_agent('updated_at'))
             ->body(function (Row $row) {
                 $row->column(6, function (Column $column) {
                     $column->row(Dashboard::title());
