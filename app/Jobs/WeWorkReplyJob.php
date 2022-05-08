@@ -3,8 +3,10 @@
 namespace App\Jobs;
 
 use Exception;
+use GuzzleHttp\Client;
 use EasyWeChat\Work\Message;
 use Illuminate\Bus\Queueable;
+use App\Services\WeworkService;
 use App\Models\WeWork\WeWorkReply;
 use Illuminate\Queue\SerializesModels;
 use Overtrue\LaravelWeChat\EasyWeChat;
@@ -45,14 +47,12 @@ class WeWorkReplyJob implements ShouldQueue
                     'userid' => $this->message->FromUserName
                 ]);
             })
-            ->whereHas('keywords', function ($query) {
-                return $query->where('keywords', 'like', '%'.$this->message->Content.'%');
-            })
+            ->where('digest', 'like', '%'.$this->message->Content.'%')
             ->where('status', WeWorkReply::ACTIVED)
             ->get(['title', 'content', 'id', 'recall_time', 'need_alarm', 'interval_time', 'url']);
 
 
-            $this->sendMessage($replies);
+            !blank($replies) ? $this->sendMessage($replies) : $this->inspire();
         } catch (Exception $e) {
             info('回复报错', [$e->getMessage()]);
         }
@@ -63,24 +63,23 @@ class WeWorkReplyJob implements ShouldQueue
         if (blank($replies)) {
             return;
         }
-        $app = EasyWeChat::work();
-        $api = $app->getClient();
 
         foreach ($replies as $reply) {
-            $response = $api->post(
-                'cgi-bin/message/send',
-                [
-                'json' => [
-                        "touser" => $this->message->FromUserName,
-                        "text" => [
-                            "content" =>$reply->content
-                        ],
-                        "agentid" => $this->message->AgentID,
-                        "msgtype" => "text",
-                    ]
-                ]
-            );
-            info('send messege res', [$response->toArray()]);
+            $response = app(WeworkService::class)->sendTextMessage($this->message->FromUserName, $reply->title, $reply->content);
+
+            info('send messege res', $response);
         }
+    }
+
+    public function inspire()
+    {
+        $client = new Client();
+        $response = $client->request('GET', 'https://v1.hitokoto.cn/');
+        if ($response->getStatusCode() != 200) {
+            return 0;
+        }
+        $contents = $response->getBody()->getContents();
+        $hitokoto = json_decode($contents, true);
+        app(WeworkService::class)->sendTextMessage($this->message->FromUserName, $hitokoto['from']??'Hi', $hitokoto['hitokoto']??'Hi');
     }
 }

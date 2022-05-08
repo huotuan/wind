@@ -45,6 +45,5 @@ class SyncWeWorkUserCommand extends Command
         } catch (Exception $e) {
             //  异常信息
         }
-      
     }
 }

@@ -22,6 +22,7 @@ return new class () extends Migration {
             $table->string('alias')->nullable()->comment('别名');
             $table->string('open_user_id')->nullable()->comment('open_user_id');
             $table->tinyInteger('status')->nullable()->default(1)->comment('激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。');
+            $table->tinyInteger('is_selected')->nullable()->default(1)->comment('启用状态: 1=已激活，0=已禁用');
             $table->string('email')->nullable();
             $table->string('mobile', 32)->nullable();
             $table->dateTime('created_at')->nullable();

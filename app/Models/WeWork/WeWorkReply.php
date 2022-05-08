@@ -2,10 +2,11 @@
 
 namespace App\Models\WeWork;
 
-use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class WeWorkReply extends Model
 {
@@ -21,8 +22,11 @@ class WeWorkReply extends Model
         return $this->belongsTo(WeWorkUser::class, 'wework_user_id');
     }
 
-    public function keywords()
+    public function digest(): Attribute
     {
-        return $this->hasMany(WeWorkKeywords::class, 'reply_id');
+        return new Attribute(
+            get: fn ($value) => blank($value) ? $value : explode('--', $value),
+            set: fn ($value) => blank($value) ? $value : implode('--', $value),
+        );
     }
 }

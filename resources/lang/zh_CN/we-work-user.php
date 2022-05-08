@@ -9,6 +9,7 @@ return [
     'fields' => [
         'corp_id' => '企业id',
         'userid' => 'userid',
+        'is_selected' => '启用?',
         'name' => '名字',
         'avatar' => '头像',
         'thumb_avatar' => '缩略图',

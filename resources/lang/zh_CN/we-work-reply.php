@@ -10,6 +10,7 @@ return [
         'wework_user_id' => '成员',
         'we_work_user_id' => '成员',
         'title' => '标题',
+        'digest' => '关键词',
         'keywords' => '关键词',
         'content' => '回复内容',
         'status' => '启用？',

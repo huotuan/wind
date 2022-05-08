@@ -10,6 +10,8 @@ class WeWorkUser extends Model
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
+    public const SELECTED=1;
+    public const NOT_SELECTED=0;
     public const ACTIVATED=1;
     public const STATUS_MAP = [
         self::ACTIVATED=>'已激活',
@@ -32,4 +34,14 @@ class WeWorkUser extends Model
         'mobile',
         'email',
     ];
+
+    public function scopeActivated(\Illuminate\Database\Eloquent\Builder $query)
+    {
+        return $query->where('status', self::ACTIVATED);
+    }
+
+    public function scopeSelected(\Illuminate\Database\Eloquent\Builder $query)
+    {
+        return $query->where('is_selected', self::SELECTED);
+    }
 }

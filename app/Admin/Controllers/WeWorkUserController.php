@@ -8,6 +8,9 @@ use Dcat\Admin\Show;
 use Dcat\Admin\Admin;
 use App\Models\WeWork\WeWorkReply;
 use App\Admin\Repositories\WeWorkUser;
+use Dcat\Admin\Grid\Tools\ActionDivider;
+use App\Admin\Actions\Grid\BatchSendMessage;
+use App\Admin\Actions\Grid\ManualSendMessage;
 use Dcat\Admin\Http\Controllers\AdminController;
 use App\Models\WeWork\WeWorkUser as WeWorkWeWorkUser;
 
@@ -24,6 +27,7 @@ class WeWorkUserController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('name');
             $grid->column('avatar')->image(null, 50, 50);
+            $grid->column('is_selected')->switch()->help('禁用无法收到消息');
             $grid->column('status')->using(WeWorkWeWorkUser::STATUS_MAP)->dot([
            1 => 'success',
            2 => 'danger',
@@ -33,16 +37,19 @@ class WeWorkUserController extends AdminController
             $grid->column('created_at')->short_datetime();
             $grid->column('updated_at')->short_datetime()->sortable();
 
-            $grid->disableRowSelector();
-            $grid->disableActions();
             $grid->disableCreateButton();
+            $grid->disableFilter();
+            $grid->disableBatchActions();
+            $grid->disableDeleteButton();
+            $grid->disableRowSelector();
 
             $grid->perPages([20, 50, 100]);
             $grid->model()->orderBy('id', 'desc');
 
-
-            $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->disableDelete();
+                $actions->disableEdit();
+                $actions->append(new ManualSendMessage());
             });
         });
     }
@@ -80,14 +87,8 @@ class WeWorkUserController extends AdminController
     {
         return Form::make(new WeWorkUser(), function (Form $form) {
             $form->display('id');
-            $form->text('corp_id');
-            $form->text('userid');
-            $form->text('name');
-            $form->text('avatar');
-            $form->text('thumb_avatar');
-            $form->text('alias');
-            $form->text('open_user_id');
-            $form->text('status');
+            $form->display('name');
+            $form->switch('is_selected');
 
             $form->display('created_at');
             $form->display('updated_at');

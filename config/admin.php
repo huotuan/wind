@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Wind',
+    'name' => '小助手',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img src="/vendor/dcat-admin/images/logo.png" width="35"> &nbsp;Dcat Admin',
+    'logo' => '<img src="/vendor/dcat-admin/images/logo.png" width="35"> &nbsp;企微 小助手',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Wind',
+    'title' => '企微小助手',
 
     /*
     |--------------------------------------------------------------------------

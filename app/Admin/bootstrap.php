@@ -59,7 +59,7 @@ $script = <<<'JS'
         })
 JS;
 Admin::script($script);
-
+config(['admin.name' => get_agent('name')??'小助手']);
 Admin::navbar(function (Navbar $navbar) {
     $navbar->left(Refresh::make()->render());
 });

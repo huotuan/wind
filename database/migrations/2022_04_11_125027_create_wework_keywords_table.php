@@ -12,9 +12,8 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Schema::create('wework_reply_keywords', function (Blueprint $table) {
+        Schema::create('wework_keywords', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('reply_id')->default(0)->index('idx_replyId');
             $table->string('keywords', 128)->index('idx_words')->comment('关键词');
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
@@ -29,6 +28,6 @@ return new class () extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('wework_reply_keywords');
+        Schema::dropIfExists('wework_keywords');
     }
 };

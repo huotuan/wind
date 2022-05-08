@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Actions\Grid\SendMessage;
 use App\Admin\Repositories\WeWorkReply;
 use App\Models\WeWork\WeWorkUser;
 use Dcat\Admin\Form;
@@ -18,12 +19,11 @@ class WeWorkReplyController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new WeWorkReply(['user:id,name', 'keywords:id,reply_id,keywords']), function (Grid $grid) {
+        return Grid::make(new WeWorkReply(['user:id,name']), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('user.name', '成员');
-
             $grid->column('title');
-            $grid->keywords()->pluck('keywords')->implode('--');
+            $grid->column('digest')->implode('--');
             $grid->column('status')->switch();
             $grid->column('need_alarm')->switch();
             $grid->column('created_at')->short_datetime();
@@ -34,19 +34,16 @@ class WeWorkReplyController extends AdminController
             $grid->model()->with('user:id,name')->orderBy('id', 'desc');
 
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-
-                $filter->where('keywords', function ($query) {
-                    $query->whereHas('keywords', function ($query) {
-                        $query->where('keywords', 'like', "%{$this->input}%");
-                    });
-                }, '关键词');
-
+                $filter->like('digest');
                 $filter->where('user', function ($query) {
                     $query->whereHas('user', function ($query) {
                         $query->where('name', 'like', "%{$this->input}%");
                     });
                 }, '昵称/手机');
+            });
+
+            $grid->actions(function (Grid\Displayers\Actions $actions) {
+                $actions->append(new SendMessage());
             });
         });
     }
@@ -84,23 +81,18 @@ class WeWorkReplyController extends AdminController
      */
     protected function form()
     {
-        $builder = WeWorkReply::with('keywords');
-        return Form::make($builder, function (Form $form) {
+        return Form::make(new WeWorkReply(), function (Form $form) {
             $form->display('id');
-            $form->select('wework_user_id', '成员')->options(WeWorkUser::query()->pluck('name', 'id'));
+            $form->select('wework_user_id', '成员')->options(WeWorkUser::query()->activated()->selected()->pluck('name', 'id'));
             $form->text('title')->required();
-            $form->hasMany('keywords', '触发关键词', function (Form\NestedForm $form) {
-                $form->text('keywords', '关键词')->required();
-            })->useTable()->required();
-
-            $form->textarea('content');
+            $form->list('digest')->required();
+            $form->textarea('content')->required();
             $form->text('url')->default('#');
 
-            $form->switch('status');
+            $form->switch('status')->default(1);
             $form->switch('need_alarm');
             $form->number('recall_time')->default(0)->help('多久后撤回，0 未不撤回（秒')->max(86400);
             $form->number('interval_time')->default(0)->help('消息间隔，0 没有间隔（小时）')->max(120);
-
 
             $form->display('created_at');
             $form->display('updated_at');

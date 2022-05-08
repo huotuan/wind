@@ -2,7 +2,7 @@
     "name": "zhangfei/wind",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel","laravel9","easywechat","laravel-wechat","wework","企业微信机器人","自动回复","dcat-admin"],
+    "keywords": ["framework", "laravel","laravel9","easywechat","laravel-wechat","wework","企业微信机器人","企微小助手","自动回复","dcat-admin"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
